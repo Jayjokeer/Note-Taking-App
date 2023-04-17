@@ -19,14 +19,10 @@ app.use('/',require('./routes/registerRoute'))
 app.post('/getnotes',(req,res)=>{
     const {user} = req.body
 })
-app.post('/login',(req,res)=>{
 
-})
-app.post('/signup',(req,res)=>{
 
-})
 app.post('/addnotes',(req,res)=>{
-
+    console.log(req.body)
 })
 app.post('/deletenote',(req,res)=>{
 

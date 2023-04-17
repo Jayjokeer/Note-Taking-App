@@ -23,7 +23,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
         <li class="nav-item ">
-          <a class="nav-link active" aria-current="page" href="/home">
+          <a class="nav-link active" aria-current="page" href="/">
             Home
           </a>
         </li>
@@ -32,8 +32,8 @@
         </li>
       </ul>
       <div class="d-flex" role="search">
-        <a href="/login"><button class="btn btn-outline-success mx-2" type="submit">Login</button></a>
-        <a href="/signup"><button class="btn btn-outline-success mx-2" type="submit">Signup</button></a>
+        <a href="/login"><button class="btn btn-outline-primary mx-2" type="submit">Login</button></a>
+        <a href="/signup"><button class="btn btn-outline-primary mx-2" type="submit">Signup</button></a>
       </div>
     </div>
   </nav>
@@ -51,79 +51,84 @@
         <label for="desc" class="form-label">Description</label>
         <textarea type="text" class="form-control" id="desc"></textarea>
       </div>
-      
-      <button id="submit" type="submit" class="btn btn-success">Submit</button>
+
+      <button id="submit" type="submit" class="btn btn-primary">Submit</button>
     </div>
 
     <h1 class="my-4">Your Notes</h1>
-    <div class="mynotes row"> 
-    <div class="card mx-4" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-          content.</p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-      </div>
-    </div>
+    <div class="mynotes row">
 
-
-
-    <div class="card mx-4" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-          content.</p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-      </div>
-    </div>
-
-
-    <div class="card mx-4" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-          content.</p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-      </div>
-    </div>
     </div>
 
   </div>
   <script>
     async function postData(url = "", data = {}) {
       const response = await fetch(url, {
-        method: "POST", 
-        
+        method: "POST",
+
         headers: {
           "Content-Type": "application/json",
-          
+
         },
         body: JSON.stringify(data),
       });
-      return response.json(); 
+      let rdata = await response.json();
+      return rdata
     }
     //get all notes
-    const user = JSON.parse(localStorage.getItem('user'))
-    /*if(!user || !user.token){
-      window.location='/login'
-    }*/
-    /*const notes = postData('/getnotes',{token:user.token}) 
-    notes.then((notes)=>{
-      console.log('Notes')
-    })*/
+    const fetchAllnotes = async () => {
 
+
+      const useer = JSON.stringify(localStorage.getItem("user"))
+      const user = JSON.parse(useer)
+      /*if(!user || !user.token){
+        window.location='/login'
+      }*/
+      if (user && user !== null) {
+        let noteContainer = document.querySelector(".mynotes")
+        noteContainer.innerHTML = ""
+        const notes = await postData('/getallnotes', { email: user })
+
+        console.log('Notes', notes);
+        notes.allNotes.forEach(element => {
+
+
+          let note = `<div class="card mx-4 my-2" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">${element.title}</h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+          <p class="card-text">${element.desc}</p>
+          <a href="/deleteNote" class="card-link">Delete</a>
+          <a href="#" class="card-link">Another link</a>
+        </div>
+      </div>`
+          let noteContainer = document.querySelector(".mynotes")
+          noteContainer.innerHTML += note
+
+        });
+
+
+      } else {
+        alert("Please login first")
+      }
+    }
+    fetchAllnotes()
     //add a click listener for submit
     let submit = document.getElementById('submit')
-    submit.addEventListener('click',()=>{
+    submit.addEventListener('click', async () => {
       let title = document.getElementById("title").value
       let desc = document.getElementById("desc").value
-      console.log('Submitting this data',title,desc)
+      let emaail = JSON.stringify(localStorage.getItem('user'))
+      let email = JSON.parse(emaail)
+      console.log('Submitting this data', title, desc, email)
+      let resp = await postData('/addnote', { title, desc, email })
+      if (resp.success) {
+        alert("Note created!!!")
+        document.getElementById('title').value = ""
+        document.getElementById('desc').value = ""
+        fetchAllnotes()
+      }
+
     })
   </script>
 </body>

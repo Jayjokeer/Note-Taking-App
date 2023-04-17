@@ -18,7 +18,7 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
     
             <li class="nav-item ">
-              <a class="nav-link active" aria-current="page" href="/home">
+              <a class="nav-link active" aria-current="page" href="/">
                 Home
               </a>
             </li>
@@ -27,8 +27,8 @@
             </li>
           </ul>
           <div class="d-flex" role="search">
-            <a href="/login"><button class="btn btn-outline-success mx-2" type="submit">Login</button></a>
-            <a href="/signup"><button class="btn btn-outline-success mx-2" type="submit">Signup</button></a>
+            <a href="/login"><button class="btn btn-outline-primary mx-2" type="submit">Login</button></a>
+            <a href="/signup"><button class="btn btn-outline-primary mx-2" type="submit">Signup</button></a>
           </div>
         </div>
       </nav>
@@ -46,7 +46,7 @@
           <div id="passwordHelp" class="form-text">Please pick a strong password.</div>
         </div>
       
-        <button id="submit" type="submit" class="btn btn-success">Signup</button>
+        <button id="submit" type="submit" class="btn btn-primary">Signup</button>
       </div>
     </div>
     <script>
@@ -60,16 +60,25 @@
         },
         body: JSON.stringify(data),
       });
-      return response.json(); 
+      let rdata = await response.json();
+      return rdata 
     }
     
     let submit = document.getElementById('submit')
-    submit.addEventListener('click',()=>{
+    submit.addEventListener('click',async()=>{
       let email = document.getElementById("email").value
       let password = document.getElementById("password").value
       console.log('Submitting this data',email,password)
+      let resp = await postData('/signup',{email,password})
+      console.log(resp)
+      if(resp.success){
+        alert("user created you can now login")
+        document.getElementById('email').value=""
+        document.getElementById('password').value= ""
+      }
+
     })
-    postData('/signup',{email,password})
+    
     
     </script>
 </body>

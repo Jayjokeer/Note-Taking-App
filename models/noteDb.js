@@ -8,6 +8,9 @@ const noteSchema = new mongoose.Schema({
     desc:{
         type:String,
         required:[true,'please input a description']
+    },
+    email:{
+        type:String
     }
 },{timestamps:true})
 
