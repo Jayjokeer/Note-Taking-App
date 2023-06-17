@@ -20,6 +20,7 @@
   <nav class="navbar bg-dark" data-bs-theme="dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">NoteBook App </a>
+      
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
         <li class="nav-item ">
@@ -27,9 +28,7 @@
             Home
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link " href="/about">About</a>
-        </li>
+        
       </ul>
       <div class="d-flex" role="search">
         <a href="/login"><button class="btn btn-outline-primary mx-2" type="submit">Login</button></a>
@@ -37,6 +36,7 @@
       </div>
     </div>
   </nav>
+  <div class="text-bg-dark p-3">
 
   <div class="container">
 
@@ -96,10 +96,10 @@
           let note = `<div class="card mx-4 my-2" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title">${element.title}</h5>
-          <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+          <h6 class="card-subtitle mb-2 text-body-secondary">Description</h6>
           <p class="card-text">${element.desc}</p>
-          <a href="/deleteNote" class="card-link">Delete</a>
-          <a href="#" class="card-link">Another link</a>
+          
+          
         </div>
       </div>`
           let noteContainer = document.querySelector(".mynotes")
@@ -130,7 +130,9 @@
       }
 
     })
+ 
   </script>
+   </div>
 </body>
 
 </html>

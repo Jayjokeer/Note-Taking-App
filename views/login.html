@@ -27,9 +27,7 @@
             Home
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link " href="/about">About</a>
-        </li>
+
       </ul>
       <div class="d-flex" role="search">
         <a href="/login"><button class="btn btn-outline-primary mx-2" type="submit">Login</button></a>
@@ -37,57 +35,58 @@
       </div>
     </div>
   </nav>
+  <div class="text-bg-dark p-3">
+    <div class="container">
+      <h3 class="my-4">Login page</h3>
+      <div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+          <div id="emailHelp" class="form-text">Please input your email.</div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password">
+          <div id="passwordHelp" class="form-text">Please input a valid password.</div>
+        </div>
 
-  <div class="container">
-    <h3 class="my-4">Login page</h3>
-    <div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">Please input your email.</div>
+        <button id="submit" type="submit" class="btn btn-primary">login</button>
       </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password">
-        <div id="passwordHelp" class="form-text">Please input a valid password.</div>
-      </div>
-
-      <button id="submit" type="submit" class="btn btn-primary">login</button>
     </div>
-  </div>
-  <script>
-    async function postData(url = "", data = {}) {
-      const response = await fetch(url, {
-        method: "POST", 
-        
-        headers: {
-          "Content-Type": "application/json",
-          
-        },
-        body: JSON.stringify(data),
-      });
-      let rdata = await response.json();
-      return rdata 
-    }
-    
-    let submit = document.getElementById('submit')
-    submit.addEventListener('click',async()=>{
-      let email = document.getElementById("email").value
-      let password = document.getElementById("password").value
-      console.log('Submitting this data',email,password)
-      let resp = await postData('/login',{email,password})
-      console.log(resp)
-      if(resp.success){
-        alert("user created you can now login")
-        localStorage.setItem('user',JSON.stringify(resp.user))
-        document.getElementById('email').value=""
-        document.getElementById('password').value= ""
+    <script>
+      async function postData(url = "", data = {}) {
+        const response = await fetch(url, {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+
+          },
+          body: JSON.stringify(data),
+        });
+        let rdata = await response.json();
+        return rdata
       }
 
-    })
-    
-    
+      let submit = document.getElementById('submit')
+      submit.addEventListener('click', async () => {
+        let email = document.getElementById("email").value
+        let password = document.getElementById("password").value
+        console.log('Submitting this data', email, password)
+        let resp = await postData('/login', { email, password })
+        console.log(resp)
+        if (resp.success) {
+          alert("user created you can now login")
+          localStorage.setItem('user', JSON.stringify(resp.user))
+          document.getElementById('email').value = ""
+          document.getElementById('password').value = ""
+        }
+
+      })
+
+
     </script>
+  </div>
 </body>
 
 </html>

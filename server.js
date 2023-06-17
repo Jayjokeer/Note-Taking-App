@@ -15,18 +15,10 @@ app.use('/',require('./routes/loginRoute'))
 app.use('/',require('./routes/registerRoute'))
 
 
-//api
-app.post('/getnotes',(req,res)=>{
-    const {user} = req.body
-})
 
 
-app.post('/addnotes',(req,res)=>{
-    console.log(req.body)
-})
-app.post('/deletenote',(req,res)=>{
 
-})
+
 app.listen(port,()=>{
     console.log(`app running on http://localhost:${port}`)
 })
