@@ -5,12 +5,14 @@ Before running this application, make sure you have the following installed:
 
 Node.js: https://nodejs.org
 MongoDB: https://www.mongodb.com
-Installation
+
+#### Installation
 Clone the repository:
 git clone https://github.com/your-username/note-taking-app.git
 Navigate to the project directory:
 cd note-taking-app
-Install the dependencies:
+
+#### Install the dependencies:
 npm install
 Rename the .env.example file to .env and update the environment variables with your MongoDB connection details:
 MONGODB_URL=mongodb://localhost:27017/note-taking-app
@@ -18,8 +20,8 @@ Start the application:
 npm start
 The application will run on http://localhost:5000.
 
-License
-This project is licensed under the MIT License.
+## License
+This project is licensed under the ISC License.
 
-Contributing
+## Contributing
 Contributions are welcome!
